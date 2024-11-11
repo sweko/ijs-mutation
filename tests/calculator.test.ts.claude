@@ -1,0 +1,83 @@
+import { calculator } from '../code/calculator';
+
+describe('Calculator', () => {
+  describe('add', () => {
+    test('adds two positive numbers correctly', () => {
+      expect(calculator.add(2, 3)).toBe(5);
+    });
+
+    test('handles negative numbers', () => {
+      expect(calculator.add(-1, 1)).toBe(0);
+      expect(calculator.add(-1, -1)).toBe(-2);
+    });
+
+    test('handles zero', () => {
+      expect(calculator.add(0, 5)).toBe(5);
+      expect(calculator.add(5, 0)).toBe(5);
+    });
+  });
+
+  describe('subtract', () => {
+    test('subtracts two positive numbers correctly', () => {
+      expect(calculator.subtract(5, 3)).toBe(2);
+    });
+
+    test('handles negative numbers', () => {
+      expect(calculator.subtract(-1, 1)).toBe(-2);
+      expect(calculator.subtract(-1, -1)).toBe(0);
+    });
+
+    test('handles zero', () => {
+      expect(calculator.subtract(5, 0)).toBe(5);
+      expect(calculator.subtract(0, 5)).toBe(-5);
+    });
+  });
+
+  describe('divide', () => {
+    test('divides two positive numbers correctly', () => {
+      expect(calculator.divide(6, 2)).toBe(3);
+    });
+
+    test('handles division by zero', () => {
+      expect(calculator.divide(5, 0)).toBe(-1);
+    });
+
+    test('handles decimal results', () => {
+      expect(calculator.divide(5, 2)).toBe(2.5);
+    });
+
+    test('handles negative numbers', () => {
+      expect(calculator.divide(-6, 2)).toBe(-3);
+      expect(calculator.divide(6, -2)).toBe(-3);
+      expect(calculator.divide(-6, -2)).toBe(3);
+    });
+  });
+
+  describe('getTotalWidth', () => {
+    test('calculates correct width with single side element', () => {
+      const main = { width: 100, height: 50 };
+      const sideElements = [{ width: 20, height: 30 }];
+      expect(calculator.getTotalWidth(main, sideElements)).toBe(80);
+    });
+
+    test('calculates correct width with multiple side elements', () => {
+      const main = { width: 100, height: 50 };
+      const sideElements = [
+        { width: 20, height: 30 },
+        { width: 30, height: 40 }
+      ];
+      expect(calculator.getTotalWidth(main, sideElements)).toBe(50);
+    });
+
+    test('handles empty side elements array', () => {
+      const main = { width: 100, height: 50 };
+      expect(calculator.getTotalWidth(main, [])).toBe(100);
+    });
+
+    test('handles zero width elements', () => {
+      const main = { width: 100, height: 50 };
+      const sideElements = [{ width: 0, height: 30 }];
+      expect(calculator.getTotalWidth(main, sideElements)).toBe(100);
+    });
+  });
+});
